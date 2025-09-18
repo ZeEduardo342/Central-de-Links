@@ -187,7 +187,7 @@ class AppState {
         const password = document.getElementById('adminPassword').value;
         
         // Simple password check (in production, use proper authentication)
-        if (password === 'admin123') {
+        if (password === 'MKT@2025!') {
             this.isAdmin = true;
             this.updateAdminUI();
             this.closeModal(document.getElementById('loginModal'));
