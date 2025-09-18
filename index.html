@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Links</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button id="sidebarToggle" class="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 class="logo">Central de Links</h1>
+        </div>
+        <div class="header-right">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar links..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <button id="themeToggle" class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button id="adminToggle" class="admin-toggle">
+                <i class="fas fa-user-cog"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>Categorias</h3>
+        </div>
+        <nav class="sidebar-nav">
+            <ul id="categoriesList" class="categories-list">
+                <!-- Categorias serão carregadas dinamicamente -->
+            </ul>
+        </nav>
+        <div class="sidebar-footer" id="adminSidebarFooter" style="display: none;">
+            <button id="addCategoryBtn" class="btn btn-secondary">
+                <i class="fas fa-plus"></i> Nova Categoria
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Favoritos Section -->
+        <section id="favoritesSection" class="favorites-section">
+            <h2><i class="fas fa-star"></i> Favoritos</h2>
+            <div id="favoritesList" class="links-grid">
+                <!-- Links favoritos serão carregados dinamicamente -->
+            </div>
+        </section>
+
+        <!-- Links Section -->
+        <section class="links-section">
+            <div class="section-header">
+                <h2 id="currentCategoryTitle">Todos os Links</h2>
+                <button id="addLinkBtn" class="btn btn-primary" style="display: none;">
+                    <i class="fas fa-plus"></i> Adicionar Link
+                </button>
+            </div>
+            <div id="linksList" class="links-grid">
+                <!-- Links serão carregados dinamicamente -->
+            </div>
+        </section>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <i class="fas fa-link"></i>
+            <h3>Nenhum link encontrado</h3>
+            <p>Adicione alguns links para começar ou ajuste sua busca.</p>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Login Administrativo</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="adminPassword">Senha:</label>
+                        <input type="password" id="adminPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Link Modal -->
+    <div id="linkModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="linkModalTitle">Adicionar Link</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="linkForm">
+                    <div class="form-group">
+                        <label for="linkTitle">Título:</label>
+                        <input type="text" id="linkTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="linkUrl">URL:</label>
+                        <input type="url" id="linkUrl" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="linkCategory">Categoria:</label>
+                        <select id="linkCategory" required>
+                            <!-- Opções serão carregadas dinamicamente -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="linkTags">Tags (separadas por vírgula):</label>
+                        <input type="text" id="linkTags" placeholder="design, urgente, interno">
+                    </div>
+                    <div class="form-group">
+                        <label for="linkDescription">Descrição:</label>
+                        <textarea id="linkDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="linkFavorite">
+                            <span class="checkmark"></span>
+                            Marcar como favorito
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="linkActive" checked>
+                            <span class="checkmark"></span>
+                            Link ativo (clicável)
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelLinkBtn">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nova Categoria</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="categoryForm">
+                    <div class="form-group">
+                        <label for="categoryName">Nome da Categoria:</label>
+                        <input type="text" id="categoryName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoryIcon">Ícone (Font Awesome):</label>
+                        <input type="text" id="categoryIcon" placeholder="fas fa-folder" value="fas fa-folder">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelCategoryBtn">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Criar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link Details Modal -->
+    <div id="linkDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="linkDetailsTitle">Detalhes do Link</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="linkDetailsContent">
+                    <!-- Conteúdo será preenchido dinamicamente -->
+                </div>
+                <div class="form-actions" id="linkDetailsActions" style="display: none;">
+                    <button type="button" class="btn btn-secondary" id="editLinkBtn">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                    <button type="button" class="btn btn-danger" id="deleteLinkBtn">
+                        <i class="fas fa-trash"></i> Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmação</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Tem certeza que deseja realizar esta ação?</p>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelConfirmBtn">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmActionBtn">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Carregando...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container">
+        <!-- Notificações serão adicionadas dinamicamente -->
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
+
