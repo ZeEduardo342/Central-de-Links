@@ -331,7 +331,25 @@ body {
     cursor: pointer;
     position: relative;
     overflow: hidden;
+
+    /* === GRID: novo === */
+    display: grid;
+    grid-template-rows: auto 1fr auto auto; /* título | descrição (flex) | tags | footer */
+    grid-template-areas:
+    "title"
+    "description"
+    "tags"
+    "footer";
+    gap: 0.75rem;
+
+    /* opcional: para garantir altura consistente e footer colado no fundo */
+    min-height: 220px; /* ajuste conforme seu design */
 }
+
+.card > .link-title       { grid-area: title; }
+.card > .link-description { grid-area: description; }
+.card > .link-tags        { grid-area: tags; }
+.card > .link-footer      { grid-area: footer; }
 
 .link-card:hover {
     transform: translateY(-2px);
@@ -360,7 +378,6 @@ body {
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
     line-height: 1.4;
 }
 
@@ -400,20 +417,24 @@ body {
     color: var(--text-muted);
     margin-bottom: 1rem;
     word-break: break-all;
+    visibility: hidden !important;
 }
 
 .link-description {
     font-size: 0.875rem;
     color: var(--text-secondary);
-    margin-bottom: 1rem;
     line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .link-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1rem;
 }
 
 .tag {
