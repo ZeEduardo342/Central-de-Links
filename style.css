@@ -94,7 +94,7 @@ body {
     gap: 1rem;
 }
 
-.sidebar-toggle {
+.-toggle {
     background: none;
     border: none;
     color: var(--text-secondary);
@@ -103,11 +103,6 @@ body {
     padding: 0.5rem;
     border-radius: var(--border-radius);
     transition: var(--transition);
-}
-
-.sidebar-toggle:hover {
-    background-color: var(--bg-tertiary);
-    color: var(--text-primary);
 }
 
 .logo {
