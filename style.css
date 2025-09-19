@@ -27,7 +27,7 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     
     --sidebar-width: 280px;
-    --sidebar-collapsed-width: 60px;
+    --sidebar-collapsed-width: 280px;
     --header-height: 64px;
     
     --border-radius: 8px;
