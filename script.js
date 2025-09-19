@@ -70,7 +70,12 @@ class AppState {
         document.getElementById('themeToggle').addEventListener('click', () => {
             this.toggleTheme();
         });
-    
+
+        // Sidebar toggle
+        document.getElementById('sidebarToggle').addEventListener('click', () => {
+            this.toggleSidebar();
+        });
+        
         // Admin toggle
         document.getElementById('adminToggle').addEventListener('click', () => {
             if (this.isAdmin) {
