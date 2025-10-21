@@ -842,36 +842,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// --- Conversor de link Figma para app desktop ---
-function convertFigmaUrlToApp(v){
-  v = (v||'').trim();
-  if(/^figma:\/\//i.test(v)) return v.replace(/^FIGMA:\/\//,'figma://');
-  const n = /^https?:\/\//i.test(v) ? v : ('https://' + v);
-  const u = new URL(n);
-  const s = u.pathname.split('/').filter(Boolean);
-  const type = (s[0]?.toLowerCase() === 'proto') ? 'proto' : 'file';
-  const key  = s[1];
-  if(!key) throw new Error('sem chave');
-  return `figma://${type}/${key}${u.search||''}${u.hash||''}`;
-}
-
-// --- Aplica a conversão no input específico ---
-document.addEventListener('DOMContentLoaded', () => {
-  const input = document.querySelector('#linkUrl');
-  if(!input) return;
-
-  input.addEventListener('blur', () => {
-    try{
-      const novo = convertFigmaUrlToApp(input.value);
-      input.value = novo;
-      localStorage.setItem('ultimoLinkFigma', novo); // opcional
-    }catch(e){
-      console.warn('Link inválido ou não é do Figma.');
-    }
-  });
-});
-
-
 // Export for potential external use
 export { AppState };
 
